@@ -3,12 +3,9 @@ import * as React from 'react';
 import { getItemFromStorage, storeItem } from '../../helpers/localStorage';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { SERVER_URL, CLIENT_URL } from '../../api/constants';
+import { CLIENT_URL } from '../../api/constants';
 import { Container } from './style';
-import { TwitterSigninButton } from './twitter';
-import { FacebookSigninButton } from './facebook';
-import { GoogleSigninButton } from './google';
-import { GithubSigninButton } from './github';
+import { AuthingLoginForm } from './authing';
 import { track, events } from 'src/helpers/analytics';
 
 type Props = {
@@ -53,35 +50,7 @@ class LoginButtonSet extends React.Component<Props> {
 
     return (
       <Container>
-        <TwitterSigninButton
-          onClickHandler={this.saveLoginMethod}
-          href={`${SERVER_URL}/auth/twitter${postAuthRedirectPath}`}
-          preferred={nonePreferred ? true : preferredSigninMethod === 'twitter'}
-          showAfter={preferredSigninMethod === 'twitter'}
-        />
-
-        <FacebookSigninButton
-          onClickHandler={this.saveLoginMethod}
-          href={`${SERVER_URL}/auth/facebook${postAuthRedirectPath}`}
-          preferred={
-            nonePreferred ? true : preferredSigninMethod === 'facebook'
-          }
-          showAfter={preferredSigninMethod === 'facebook'}
-        />
-
-        <GoogleSigninButton
-          onClickHandler={this.saveLoginMethod}
-          href={`${SERVER_URL}/auth/google${postAuthRedirectPath}`}
-          preferred={nonePreferred ? true : preferredSigninMethod === 'google'}
-          showAfter={preferredSigninMethod === 'google'}
-        />
-
-        <GithubSigninButton
-          onClickHandler={this.saveLoginMethod}
-          href={`${SERVER_URL}/auth/github${postAuthRedirectPath}`}
-          preferred={nonePreferred ? true : preferredSigninMethod === 'github'}
-          showAfter={preferredSigninMethod === 'github'}
-        />
+        <AuthingLoginForm />
       </Container>
     );
   }

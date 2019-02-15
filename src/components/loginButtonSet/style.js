@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: flex-end;
   padding: 16px 0;
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    // grid-template-columns: repeat(2, 1fr);
   }
 `;
 

@@ -386,6 +386,14 @@ injectGlobal`
   .hljs-link {
     text-decoration: underline;
   }
+  
+  .form-header-logo {
+    border-radius: 6px;
+  }
+
+  .authing-form-badge-bottom {
+    display: none;
+  }
 `;
 
 // NOTE(@mxstbr): This is necessary to make sure the placeholder is aligned

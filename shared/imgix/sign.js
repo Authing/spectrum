@@ -12,7 +12,8 @@ const isLocalUpload = (url: string): boolean => url.startsWith('/uploads/', 0) &
 // prettier-ignore
 export const hasLegacyPrefix = (url: string): boolean => url.startsWith(LEGACY_PREFIX, 0)
 // prettier-ignore
-const useProxy = (url: string): boolean => url.indexOf('spectrum.imgix.net') < 0 && url.startsWith('http', 0)
+// const useProxy = (url: string): boolean => url.indexOf('spectrum.imgix.net') < 0 && url.startsWith('http', 0)
+const useProxy = false;
 
 /*
   When an image is uploaded to s3, we generate a url to be stored in our db
@@ -66,7 +67,6 @@ export const signImageUrl = (url: string, opts: Opts = defaultOpts): string => {
     return signPrimary(processedUrl, opts);
   } catch (err) {
     // if something fails, dont crash the entire frontend, just fail the images
-    console.error(err);
-    return '';
+    return url;
   }
 };

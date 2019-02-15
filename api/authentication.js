@@ -5,6 +5,7 @@ const { Strategy: TwitterStrategy } = require('passport-twitter');
 const { Strategy: FacebookStrategy } = require('passport-facebook');
 const { Strategy: GoogleStrategy } = require('passport-google-oauth2');
 const { Strategy: GitHubStrategy } = require('passport-github2');
+const LocalStrategy = require('passport-local').Strategy;
 const {
   getUserById,
   createOrFindUser,
@@ -263,6 +264,49 @@ const init = () => {
         };
 
         return createOrFindUser(user, 'googleProviderId')
+          .then(user => {
+            done(null, user);
+            return user;
+          })
+          .catch(err => {
+            done(err);
+            return null;
+          });
+      }
+    )
+  );
+
+  passport.use(
+    new LocalStrategy(
+      {
+        usernameField: 'data',
+        passwordField: 'code',
+      },
+      (data, code, done) => {
+        let userInfo = null;
+
+        if (code.toString() !== '200') {
+          done('出了问题');
+        }
+
+        userInfo = JSON.parse(data);
+
+        console.log(userInfo.photo);
+
+        const user = {
+          providerId: userInfo._id,
+          fbProviderId: null,
+          googleProviderId: null,
+          githubProviderId: null,
+          username: null,
+          name: userInfo.username,
+          description: null,
+          website: null,
+          email: userInfo.email,
+          profilePhoto: userInfo.photo || null,
+        };
+
+        return createOrFindUser(user, 'providerId')
           .then(user => {
             done(null, user);
             return user;

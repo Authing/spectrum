@@ -413,43 +413,45 @@ class UserWithData extends React.Component<Props, State> {
           )}
           {emailError && <Error>{emailError}</Error>}
 
-          <GithubProfile
-            id={user.id}
-            render={profile => {
-              if (!profile) {
-                return (
-                  <GithubSignin>
-                    <StyledLabel>Connect your GitHub Profile</StyledLabel>
-                    <GithubSigninButton
-                      href={`${SERVER_URL}/auth/github${postAuthRedirectPath}`}
-                      preferred={true}
-                      showAfter={false}
-                      onClickHandler={null}
-                      verb={'Connect'}
-                    />
-                  </GithubSignin>
-                );
-              } else {
-                return (
-                  <Input
-                    disabled
-                    defaultValue={`github.com/${profile.username}`}
-                  >
-                    <div>
-                      Your GitHub Profile ·{' '}
-                      <span>
-                        <a
-                          href={`${SERVER_URL}/auth/github${postAuthRedirectPath}`}
-                        >
-                          Refresh username
-                        </a>
-                      </span>
-                    </div>
-                  </Input>
-                );
-              }
-            }}
-          />
+          {false && (
+            <GithubProfile
+              id={user.id}
+              render={profile => {
+                if (!profile) {
+                  return (
+                    <GithubSignin>
+                      <StyledLabel>Connect your GitHub Profile</StyledLabel>
+                      <GithubSigninButton
+                        href={`${SERVER_URL}/auth/github${postAuthRedirectPath}`}
+                        preferred={true}
+                        showAfter={false}
+                        onClickHandler={null}
+                        verb={'Connect'}
+                      />
+                    </GithubSignin>
+                  );
+                } else {
+                  return (
+                    <Input
+                      disabled
+                      defaultValue={`github.com/${profile.username}`}
+                    >
+                      <div>
+                        Your GitHub Profile ·{' '}
+                        <span>
+                          <a
+                            href={`${SERVER_URL}/auth/github${postAuthRedirectPath}`}
+                          >
+                            Refresh username
+                          </a>
+                        </span>
+                      </div>
+                    </Input>
+                  );
+                }
+              }}
+            />
+          )}
 
           <Actions>
             <Button
